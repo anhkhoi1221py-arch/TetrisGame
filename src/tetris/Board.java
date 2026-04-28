@@ -1,7 +1,24 @@
 package tetris;
 import java.awt.Graphics;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+import javax.swing.Timer;
 public class Board extends JPanel {
+    private Timer looper;
+
+    public Board(){
+        looper = new Timer(500, new ActionListener() {
+            int n = 0;
+            @Override
+            public void actionPerformed(ActionEvent e){
+                System.out.println(n++);
+
+            }
+            
+        }); 
+        looper.start();
+    }
     
     @Override
     protected void paintComponent(Graphics g) {
