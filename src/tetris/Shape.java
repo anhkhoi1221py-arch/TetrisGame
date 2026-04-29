@@ -42,7 +42,6 @@ public class Shape {
     public void update(){
          if (collision){
             // fill the color for board 
-
             for (int row=0; row<coords.length; row++){
                 for (int col=0; col<coords[0].length; col++){
                     if (coords[row][col] != 0){
@@ -50,6 +49,7 @@ public class Shape {
                     }
                 }
             }
+            checkLine();
             // set current shape
             board.setCurrentShape();
             return;
@@ -94,6 +94,24 @@ public class Shape {
         beginTime = System.currentTimeMillis();
         }
     }
+
+    private void checkLine(){
+        int bottomLine = board.getBoard().length - 1;
+        for (int topLine = board.getBoard().length -1 ; topLine > 0 ; topLine--){
+            int count = 0 ;
+            for ( int col = 0 ; col < board.getBoard()[0].length; col++){
+                if (board.getBoard()[topLine][col] != null){
+                    count++;
+                }
+                board.getBoard()[bottomLine][col] = board.getBoard()[topLine][col];
+            }
+            if (count < board.getBoard()[0].length){
+                bottomLine--;
+            }
+        }
+    }
+
+
     public void render(Graphics g){
         for (int row=0; row<coords.length; row++){
             for (int col=0; col<coords[0].length; col++){
