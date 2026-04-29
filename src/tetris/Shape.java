@@ -36,6 +36,9 @@ public class Shape {
         this.x = 4;
         this.y = 0;
         this.collision = false;
+        this.deltaX = 0;
+        this.delayTimeForMovement = normal;
+        this.beginTime = System.currentTimeMillis();
     }
 
 
