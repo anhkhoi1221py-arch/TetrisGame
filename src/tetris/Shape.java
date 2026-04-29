@@ -16,7 +16,7 @@ public class Shape {
 
     private int[][] coords;
 
-    public Shape(int[][] coords){
+    public Shape(int[][] coords, Board board, Color color){
         this.coords = coords;
     }
 
