@@ -56,25 +56,49 @@ public class Shape {
         }
                     
         // check moving horizontal
+        boolean moveX = true;
         if (!(x + deltaX + coords[0].length > 10) && !(x + deltaX < 0)) {
-            x += deltaX;
+            for (int row = 0 ; row < coords.length; row++){
+                for (int col = 0; col < coords[row].length; col++){
+                    if (coords[row][col] != 0){
+                        if ( board.getBoard()[y + row ][x + deltaX + col] != null){
+                        moveX = false;
+                        }
+                    }
+                }              
+            }
+            if (moveX){
+                x += deltaX;
+            }
         }
         deltaX = 0;
 
         if (System.currentTimeMillis() - beginTime > delayTimeForMovement){
-            if(!(y +1 + coords.length > BOARD_HEIGHT)){
+            // vertical movement
+            if(!(y + 1 + coords.length > BOARD_HEIGHT)){
+                for (int row=0; row < coords.length; row++){
+                    for(int col=0; col < coords[0].length; col++){
+                        if(coords[row][col] != 0 ){
+                            if (board.getBoard()[y + row +1][x + col + deltaX] != null){
+                                collision = true;                            
+                            }
+                        }
+                    }
+                }
+            if (!collision){
                 y++;
-            }else{
-                collision = true;
             }
-            beginTime = System.currentTimeMillis();
+        }else{
+            collision = true;
+        }
+        beginTime = System.currentTimeMillis();
         }
     }
     public void render(Graphics g){
         for (int row=0; row<coords.length; row++){
             for (int col=0; col<coords[0].length; col++){
                 if (coords[row][col] != 0){
-                    g.setColor(Color.RED); // Replace with actual color if needed
+                    g.setColor(color); // Replace with actual color if needed
                     g.fillRect(col*BLOCK_SIZE + x*BLOCK_SIZE, row*BLOCK_SIZE + y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
                 }
             }

@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.util.Random;
 
 public class Board extends JPanel implements KeyListener{
      
@@ -20,6 +21,8 @@ public class Board extends JPanel implements KeyListener{
     private Timer looper;
     private Color[][] board = new Color[BOARD_HEIGHT][BOARD_WIDTH];
 
+    private Random random ;
+
     private Color[] colors = {
         Color.decode("#ed1c24"),
         Color.decode("#ff7f27"),
@@ -32,9 +35,10 @@ public class Board extends JPanel implements KeyListener{
     private Shape[] shapes = new Shape[7] ;
     private Shape currentShape;
 
-   
-
     public Board(){
+        random = new Random();
+
+
         shapes[0] = new Shape(new int[][]{
             {1, 1, 1, 1}
         } , this , colors[0]);
@@ -88,7 +92,7 @@ public class Board extends JPanel implements KeyListener{
     }
 
     public void setCurrentShape(){
-        currentShape = shapes[1];
+        currentShape = shapes[random.nextInt(shapes.length)];
         currentShape.reset();
     }
     
