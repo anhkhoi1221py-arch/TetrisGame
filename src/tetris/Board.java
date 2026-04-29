@@ -8,61 +8,43 @@ import java.awt.event.KeyListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
 
-
 public class Board extends JPanel implements KeyListener{
      
     private static int FPS = 60 ;
     private static int delay = 1000 / FPS ;
 
 
-    private static final int BOARD_WIDTH = 10;
-    private static final int BOARD_HEIGHT = 20;
-    private static final int BLOCK_SIZE = 30;
+    public static final int BOARD_WIDTH = 10;
+    public static final int BOARD_HEIGHT = 20;
+    public static final int BLOCK_SIZE = 30;
     private Timer looper;
     private Color[][] board = new Color[BOARD_HEIGHT][BOARD_WIDTH];
 
-    private Color[][] shape = {
-        {Color.RED, Color.RED, Color.RED},
-        {null , Color.RED, null}
+    private int[][] shapel = {
+        {1,1,1},
+        {0,1,0}
     };
 
-    private int x = 4 , y = 0 ;
-    private int normal = 600;
-    private int fast = 50;
-    private int delayTimeForMovement = normal ; 
-    private long beginTime;
+    private Shape shape = new Shape(shapel);
 
-    private int deltaX =0;
-    private boolean collision = false;
+   
 
     public Board(){
         looper = new Timer( delay, new ActionListener() {
             int n = 0;
             @Override
             public void actionPerformed(ActionEvent e){
-                if (collision){
-                    return;
-                }
-                    
-                // check moving horizontal
-                if (!(x + deltaX + shape[0].length > 10) && !(x + deltaX < 0)) {
-                    x += deltaX;
-                }
-                deltaX = 0;
-
-                if (System.currentTimeMillis() - beginTime > delayTimeForMovement){
-                    if(!(y +1 + shape.length > BOARD_HEIGHT)){
-                        y++;
-                    }else{
-                        collision = true;
-                    }
-                    beginTime = System.currentTimeMillis();
-                }
+                update();
                 repaint();
             }
             
         }); 
         looper.start();
+    }
+
+    private void update (){
+        shape.update();
+       
     }
     
     @Override
@@ -71,15 +53,8 @@ public class Board extends JPanel implements KeyListener{
         g.setColor ( Color.BLACK );
         g.fillRect (0, 0, getWidth(), getHeight()); 
 
-        // Draw the shape
-        for (int row=0; row<shape.length; row++){
-            for (int col=0; col<shape[0].length; col++){
-                if (shape[row][col] != null){
-                    g.setColor(shape[row][col]);
-                    g.fillRect(col*BLOCK_SIZE + x*BLOCK_SIZE, row*BLOCK_SIZE + y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
-                }
-            }
-        }
+        shape.render(g);
+
         // Draw the board  
  
         g.setColor(Color.WHITE);
@@ -99,18 +74,18 @@ public class Board extends JPanel implements KeyListener{
     public void keyPressed( KeyEvent e){
 
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            delayTimeForMovement = fast ;
+            shape.speedUp();
         } else if(e.getKeyCode() == KeyEvent.VK_LEFT){
-            deltaX = -1;
+            shape.moveLeft();
         } else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
-            deltaX = 1;
+            shape.moveRight();
         }
         
     }
     @Override
     public void keyReleased( KeyEvent e) {
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
-            delayTimeForMovement = normal ;
+            shape.speedDown();
         }       
     } 
 }
