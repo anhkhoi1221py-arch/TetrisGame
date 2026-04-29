@@ -85,7 +85,11 @@ public class Board extends JPanel implements KeyListener{
 
     private void update (){
         currentShape.update();
-       
+    }
+
+    public void setCurrentShape(){
+        currentShape = shapes[1];
+        currentShape.reset();
     }
     
     @Override
@@ -96,8 +100,16 @@ public class Board extends JPanel implements KeyListener{
 
         currentShape.render(g);
 
+        for (int row=0; row<BOARD_HEIGHT; row++){
+            for (int col=0; col<BOARD_WIDTH; col++){
+                if (board[row][col] != null){
+                    g.setColor(board[row][col]);
+                    g.fillRect(col*BLOCK_SIZE, row*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                }
+            }
+        }
+
         // Draw the board  
- 
         g.setColor(Color.WHITE);
         for(int row = 0; row < BOARD_HEIGHT; row++){
             g.drawLine(0,row * BLOCK_SIZE,BLOCK_SIZE * BOARD_WIDTH,row * BLOCK_SIZE);
@@ -105,6 +117,10 @@ public class Board extends JPanel implements KeyListener{
         for(int col = 0; col < BOARD_WIDTH+1; col++){
             g.drawLine(col * BLOCK_SIZE, 0, col * BLOCK_SIZE, BLOCK_SIZE * BOARD_HEIGHT);
         }
+    }
+
+    public Color[][] getBoard(){
+        return board;
     }
 
     @Override

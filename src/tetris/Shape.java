@@ -1,5 +1,6 @@
 package tetris;
 import static tetris.Board.BOARD_HEIGHT;
+import static tetris.Board.BOARD_WIDTH;
 import static tetris.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Color;
@@ -15,30 +16,59 @@ public class Shape {
     private boolean collision = false;
 
     private int[][] coords;
+    private Board board;
+    private Color color;
 
     public Shape(int[][] coords, Board board, Color color){
         this.coords = coords;
+        this.board = board;
+        this.color = color;
     }
+
+    public void setX(int x){
+        this.x = x;
+    }
+    public void setY(int y){
+        this.y = y;
+    }
+
+    public void reset(){
+        this.x = 4;
+        this.y = 0;
+        this.collision = false;
+    }
+
 
     public void update(){
          if (collision){
-                    return;
-                }
-                    
-                // check moving horizontal
-                if (!(x + deltaX + coords[0].length > 10) && !(x + deltaX < 0)) {
-                    x += deltaX;
-                }
-                deltaX = 0;
+            // fill the color for board 
 
-                if (System.currentTimeMillis() - beginTime > delayTimeForMovement){
-                    if(!(y +1 + coords.length > BOARD_HEIGHT)){
-                        y++;
-                    }else{
-                        collision = true;
+            for (int row=0; row<coords.length; row++){
+                for (int col=0; col<coords[0].length; col++){
+                    if (coords[row][col] != 0){
+                        board.getBoard()[y + row][x + col] = color;
                     }
-                    beginTime = System.currentTimeMillis();
                 }
+            }
+            // set current shape
+            board.setCurrentShape();
+            return;
+        }
+                    
+        // check moving horizontal
+        if (!(x + deltaX + coords[0].length > 10) && !(x + deltaX < 0)) {
+            x += deltaX;
+        }
+        deltaX = 0;
+
+        if (System.currentTimeMillis() - beginTime > delayTimeForMovement){
+            if(!(y +1 + coords.length > BOARD_HEIGHT)){
+                y++;
+            }else{
+                collision = true;
+            }
+            beginTime = System.currentTimeMillis();
+        }
     }
     public void render(Graphics g){
         for (int row=0; row<coords.length; row++){
