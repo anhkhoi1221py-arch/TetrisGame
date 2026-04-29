@@ -140,8 +140,9 @@ public class Board extends JPanel implements KeyListener{
             currentShape.moveLeft();
         } else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
             currentShape.moveRight();
+        }else if(e.getKeyCode() == KeyEvent.VK_UP){
+            currentShape.rotateShape();
         }
-        
     }
     @Override
     public void keyReleased( KeyEvent e) {
