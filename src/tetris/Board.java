@@ -12,7 +12,7 @@ import javax.swing.Timer;
 public class Board extends JPanel implements KeyListener{
      
     private static int FPS = 60 ;
-    private static int delay = FPS / 1000 ;
+    private static int delay = 1000 / FPS ;
 
 
     private static final int BOARD_WIDTH = 10;
@@ -32,14 +32,30 @@ public class Board extends JPanel implements KeyListener{
     private int delayTimeForMovement = normal ; 
     private long beginTime;
 
+    private int deltaX =0;
+    private boolean collision = false;
 
     public Board(){
         looper = new Timer( delay, new ActionListener() {
             int n = 0;
             @Override
             public void actionPerformed(ActionEvent e){
+                if (collision){
+                    return;
+                }
+                    
+                // check moving horizontal
+                if (!(x + deltaX + shape[0].length > 10) && !(x + deltaX < 0)) {
+                    x += deltaX;
+                }
+                deltaX = 0;
+
                 if (System.currentTimeMillis() - beginTime > delayTimeForMovement){
-                    y++;
+                    if(!(y +1 + shape.length > BOARD_HEIGHT)){
+                        y++;
+                    }else{
+                        collision = true;
+                    }
                     beginTime = System.currentTimeMillis();
                 }
                 repaint();
@@ -84,7 +100,12 @@ public class Board extends JPanel implements KeyListener{
 
         if(e.getKeyCode() == KeyEvent.VK_DOWN){
             delayTimeForMovement = fast ;
-        }       
+        } else if(e.getKeyCode() == KeyEvent.VK_LEFT){
+            deltaX = -1;
+        } else if(e.getKeyCode() == KeyEvent.VK_RIGHT){
+            deltaX = 1;
+        }
+        
     }
     @Override
     public void keyReleased( KeyEvent e) {
