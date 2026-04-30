@@ -81,7 +81,6 @@ public class Board extends JPanel implements KeyListener{
         currentShape = shapes[0];
 
         looper = new Timer( delay, new ActionListener() {
-            int n = 0;
             @Override
             public void actionPerformed(ActionEvent e){
                 update();
@@ -114,10 +113,8 @@ public class Board extends JPanel implements KeyListener{
                 }
             }
         }
-
     }
 
-    
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
