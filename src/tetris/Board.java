@@ -41,6 +41,9 @@ public class Board extends JPanel implements KeyListener{
     private Shape currentShape;
 
     public Board(){
+        setFocusable(true);
+        addKeyListener(this);
+
         random = new Random();
 
 
