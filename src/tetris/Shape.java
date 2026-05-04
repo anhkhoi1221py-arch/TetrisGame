@@ -164,8 +164,13 @@ public class Shape {
         for (int row=0; row<coords.length; row++){
             for (int col=0; col<coords[0].length; col++){
                 if (coords[row][col] != 0){
-                    g.setColor(color); // Replace with actual color if needed
-                    g.fillRect(col*BLOCK_SIZE + x*BLOCK_SIZE, row*BLOCK_SIZE + y*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                    if (Board.USE_IMAGE_MODE && image != null) {
+                        //image
+                        g.drawImage(image, col * 30 + x * 30, row * 30 + y * 30, null);
+                    } else {
+                        //classic
+                        g.setColor(color);
+                        g.fillRect(col * 30 + x * 30, row * 30 + y * 30, 30, 30);
                 }
             }
         }
