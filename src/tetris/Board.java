@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.awt.Font;
 import javax.swing.JPanel;
 import javax.swing.Timer;
@@ -25,8 +26,18 @@ public class Board extends JPanel implements KeyListener{
     public static final int BOARD_WIDTH = 10;
     public static final int BOARD_HEIGHT = 20;
     public static final int BLOCK_SIZE = 30;
+    
+    //image loader
+    public static boolean USE_IMAGE_MODE = false; 
+    final  BufferedImage[] tileImages = new BufferedImage[7];
+    
     private Timer looper;
     private Color[][] board = new Color[BOARD_HEIGHT][BOARD_WIDTH];
+    
+    private BufferedImage[][] boardImages = new BufferedImage[BOARD_HEIGHT][BOARD_WIDTH]; // For image mode, store the images of the blocks on the board
+    public BufferedImage[][] getBoardImages() {
+        return boardImages; // Getter for the board images, used in Shape class to set the image of the block when it is placed on the board
+    }
 
     private Random random ;
 
@@ -48,42 +59,30 @@ public class Board extends JPanel implements KeyListener{
 
         random = new Random();
 
-
-        shapes[0] = new Shape(new int[][]{
-            {1, 1, 1, 1}
-        } , this , colors[0]);
-
-        shapes[1] = new Shape(new int[][]{
-            {1, 1, 1},
-            {0, 1, 0},
-        } , this , colors[1]);
-
-        shapes[2] = new Shape(new int[][]{
-            {1, 1, 1},
-            {1, 0, 0},
-        } , this , colors[2]);
-         
-        shapes[3] = new Shape(new int[][]{
-            {1, 1, 1},
-            {0, 0, 1},
-        } , this , colors[3]);
-
-        shapes[4] = new Shape(new int[][]{
-            {0, 1, 1},
-            {1, 1, 0},
-        } , this , colors[4]);
-
-        shapes[5] = new Shape(new int[][]{
-            {1, 1, 0},
-            {0, 1, 1},
-        } , this , colors[5]);
-
-        shapes[6] = new Shape(new int[][]{
-            {1, 1},
-            {1, 1},
-        } , this , colors[6]);
-
-        currentShape = shapes[0];
+        BufferedImage spriteSheet = ImageLoader.loadImage("/tetris/image/meme.png"); // Load the sprite sheet and link to the path of the image
+        for (int i = 0; i < 7; i++) {// Loop through the 7 Tetris pieces and extract their corresponding images from the sprite sheet
+        if (spriteSheet != null) {
+            try {
+                tileImages[i] = spriteSheet.getSubimage(i * BLOCK_SIZE, 0, BLOCK_SIZE, BLOCK_SIZE);// Extract the image for the current piece from the sprite sheet based on its index and the block size
+            } catch (Exception e) {
+                System.err.println("Error at " + i);
+                tileImages[i] = null;
+            }
+        } else {
+            tileImages[i] = null; // If the sprite sheet is not loaded, set the tile image to null to use classic mode
+        }
+    }
+        
+        // Define the shapes of the Tetris pieces and their corresponding colors and images
+    shapes[0] = new Shape(new int[][]{{1, 1, 1, 1}}, this, colors[0], tileImages[0]);
+    shapes[1] = new Shape(new int[][]{{1, 1, 1}, {0, 1, 0}}, this, colors[1], tileImages[1]);
+    shapes[2] = new Shape(new int[][]{{1, 1, 1}, {1, 0, 0}}, this, colors[2], tileImages[2]);
+    shapes[3] = new Shape(new int[][]{{1, 1, 1}, {0, 0, 1}}, this, colors[3], tileImages[3]);
+    shapes[4] = new Shape(new int[][]{{0, 1, 1}, {1, 1, 0}}, this, colors[4], tileImages[4]);
+    shapes[5] = new Shape(new int[][]{{1, 1, 0}, {0, 1, 1}}, this, colors[5], tileImages[5]);
+    shapes[6] = new Shape(new int[][]{{1, 1}, {1, 1}}, this, colors[6], tileImages[6]);
+    currentShape = shapes[0];
+    currentShape.reset();// Set the initial shape to the first shape in the array and reset its position
 
         looper = new Timer( delay, new ActionListener() {
             @Override
@@ -141,11 +140,18 @@ public class Board extends JPanel implements KeyListener{
 
         currentShape.render(g);
 
+        // Draw the blocks on the board
         for (int row=0; row<BOARD_HEIGHT; row++){
             for (int col=0; col<BOARD_WIDTH; col++){
                 if (board[row][col] != null){
-                    g.setColor(board[row][col]);
-                    g.fillRect(col*BLOCK_SIZE, row*BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                    if (USE_IMAGE_MODE && boardImages[row][col] != null) {
+                    //image mode
+                    g.drawImage(boardImages[row][col], col * BLOCK_SIZE, row * BLOCK_SIZE, null);
+                    } else {
+                        //classic mode
+                        g.setColor(board[row][col]);
+                        g.fillRect(col * BLOCK_SIZE, row * BLOCK_SIZE, BLOCK_SIZE, BLOCK_SIZE);
+                    }
                 }
             }
         }
@@ -196,7 +202,7 @@ public class Board extends JPanel implements KeyListener{
         }else if(e.getKeyCode() == KeyEvent.VK_UP){
             currentShape.rotateShape();
         }
-
+        // Restart
         if (e.getKeyCode() == KeyEvent.VK_R) {
             reset();
         }
@@ -207,7 +213,8 @@ public class Board extends JPanel implements KeyListener{
             if(e.getKeyCode() == KeyEvent.VK_SPACE){
                 for (int row=0; row<BOARD_HEIGHT; row++){
                     for (int col=0; col<BOARD_WIDTH; col++){
-                        board[row][col] = null;
+                        board[row][col] = null; // clear the board colors
+                        boardImages[row][col] = null;// clear the board images
                     }
                 }
                 setCurrentShape();
