@@ -3,6 +3,7 @@ import static tetris.Board.BOARD_HEIGHT;
 import static tetris.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 
 public class Shape {
      private int x = 4 , y = 0 ;
@@ -17,11 +18,13 @@ public class Shape {
     private int[][] coords;
     private Board board;
     private Color color;
+    private BufferedImage image; 
 
-    public Shape(int[][] coords, Board board, Color color){
+    public Shape(int[][] coords, Board board, Color color, BufferedImage image){
         this.coords = coords;
         this.board = board;
         this.color = color;
+        this.image = image;
     }
 
     public void setX(int x){
@@ -47,7 +50,8 @@ public class Shape {
             for (int row=0; row<coords.length; row++){
                 for (int col=0; col<coords[0].length; col++){
                     if (coords[row][col] != 0){
-                        board.getBoard()[y + row][x + col] = color;
+                        board.getBoard()[y + row][x + col] = color; // set color for board
+                        board.getBoardImages()[y + row][x + col] = image; // set image for board
                     }
                 }
             }
@@ -106,6 +110,7 @@ public class Shape {
                     count++;
                 }
                 board.getBoard()[bottomLine][col] = board.getBoard()[topLine][col];
+                board.getBoardImages()[bottomLine][col] = board.getBoardImages()[topLine][col];// move down the line with image
             }
             if (count < board.getBoard()[0].length){
                 bottomLine--;
