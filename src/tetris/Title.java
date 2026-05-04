@@ -55,6 +55,12 @@ public class Title extends JPanel implements KeyListener{
         g.setFont(new Font("Arial", Font.PLAIN, 15));
         g.drawString("Press ENTER to start", 145, 450);
         g.drawString("Press SPACE to pause in game", 115, 475);
+
+        //show option to choose game mode
+        g.setColor(Board.USE_IMAGE_MODE ? Color.WHITE : Color.GREEN);
+        g.drawString("Press 1: Classic Mode " + (Board.USE_IMAGE_MODE ? "" : "[X]"), 100, 380);
+        g.setColor(Board.USE_IMAGE_MODE ? Color.GREEN : Color.WHITE);
+        g.drawString("Press 2: Image Mode " + (Board.USE_IMAGE_MODE ? "[X]" : ""), 100, 410);
     }
 
     @Override
@@ -64,10 +70,14 @@ public class Title extends JPanel implements KeyListener{
 
     @Override
     public void keyPressed(KeyEvent e) {
+        if (e.getKeyCode() == KeyEvent.VK_1) Board.USE_IMAGE_MODE = false;
+        if (e.getKeyCode() == KeyEvent.VK_2) Board.USE_IMAGE_MODE = true;
         if(e.getKeyCode() == KeyEvent.VK_ENTER){
             window.startGame();
         }
+        repaint();
     }
+    
     @Override 
     public void keyReleased(KeyEvent e) {
         
