@@ -1,5 +1,5 @@
 # Project
-  - Tetric game.
+  - Tetris game.
 # Description
   - This is a Java-based implementation of the game Tetris.
   - It allows users to play the game using a graphical user interface.
