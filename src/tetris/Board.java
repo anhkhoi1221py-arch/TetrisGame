@@ -16,6 +16,7 @@ public class Board extends JPanel implements KeyListener{
     public static int STATE_GAME_OVER = 2;
 
     private int state = STATE_GAME_PLAY;
+    private int score = 0;
 
     private static int FPS = 60 ;
     private static int delay = 1000 / FPS ;
@@ -118,6 +119,19 @@ public class Board extends JPanel implements KeyListener{
             }
         }
     }
+    public void addPoint() {
+        this.score++;
+    }
+    public void reset() {
+        for (int row = 0; row < BOARD_HEIGHT; row++) {
+            for (int col = 0; col < BOARD_WIDTH; col++) {
+                board[row][col] = null;
+            }
+        }
+        score = 0;
+        setCurrentShape();
+        state = STATE_GAME_PLAY;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -144,6 +158,11 @@ public class Board extends JPanel implements KeyListener{
         for(int col = 0; col < BOARD_WIDTH+1; col++){
             g.drawLine(col * BLOCK_SIZE, 0, col * BLOCK_SIZE, BLOCK_SIZE * BOARD_HEIGHT);
         }
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Score: " + score, 305, 100);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString("Press R to restart", 305, 50);
 
         if ( state == STATE_GAME_OVER){
             g.setColor(Color.WHITE);
@@ -176,6 +195,10 @@ public class Board extends JPanel implements KeyListener{
             currentShape.moveRight();
         }else if(e.getKeyCode() == KeyEvent.VK_UP){
             currentShape.rotateShape();
+        }
+
+        if (e.getKeyCode() == KeyEvent.VK_R) {
+            reset();
         }
 
 
