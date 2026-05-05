@@ -178,8 +178,8 @@ public class Board extends JPanel implements KeyListener{
 
         // Menu
         g.setColor(Color.WHITE);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("P to return to Menu", 313, 230);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString("P to return to Menu", 305, 230);
         
         // Game over and pause messages
         if ( state == STATE_GAME_OVER){
