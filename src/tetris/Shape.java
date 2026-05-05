@@ -1,6 +1,5 @@
 package tetris;
 import static tetris.Board.BOARD_HEIGHT;
-import static tetris.Board.BLOCK_SIZE;
 import java.awt.Graphics;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
@@ -175,6 +174,7 @@ public class Shape {
             }
         }
     }
+}
 
     public int[][] getCoords(){
         return coords;
