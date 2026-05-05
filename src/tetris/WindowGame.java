@@ -21,12 +21,20 @@ public class WindowGame {
     public static void main(String[] args) {
         new WindowGame();
     }
+    
+    public void returnToMenu() {
+        window.remove(board);
+        window.add(title);
+        window.revalidate();
+        window.repaint();
+        title.requestFocusInWindow();
+    }
 
     public void startGame(){
         window.remove(title);
         window.removeKeyListener(title);
 
-        board = new Board();
+        board = new Board(this);
         window.add(board);
 
         window.revalidate();
