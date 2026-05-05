@@ -16,11 +16,35 @@
   - Game board.
   - Game start and restart.
   - Basic game logic.
-# Class Design (to be filled)
-# Class Diagram (to be filled)
-# Technologies Used (to be filled)
-# Extra Features (to be filled)
-# Design Patterns (to be filled)
+# Class Design 
+  The project is divided into several classes:
+    - "WindowGame.java": Creates the main game window and starts the program.
+    - "Title.java": Displays the title screen and game instructions.
+    - "Board.java": Handles the game board, game loop, keyboard input, score, pause, restart, and game over.
+    - "Shape.java": Handles tetromino movement, rotation, falling speed, collision, and drawing.
+    - "ImageLoader.java": Loads images used in the game.
+# Class Diagram
+  - "WindowGame" creates and manages "Title" and "Board".
+  - "Title" calls "WindowGame" to start the game.
+  - "Board" creates and manages "Shape" objects.
+  - "Shape" uses "Board" to check collision and store landed blocks.
+# Technologies Used
+  - Java
+  - Java Swing
+  - Java AWT
+  - Git
+  - GitHub
+  - Visual Studio Code
+# Extra Features 
+  - Title screen with instructions
+  - Pause and resume game
+  - Restart after game over
+  - Score system
+  - Image mode / classic mode
+# Design Patterns 
+  - Encapsulation: Each class has its own responsibility.
+  - Separation of concerns: Window, title screen, board logic, and shape logic are separated into different classes.
+  - Object composition: `Board` contains and manages multiple `Shape` objects.
 # How To Run The Project (to be filled)
 # Team Members
   - Trần Anh Khôi _ ITITIU25016
