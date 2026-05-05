@@ -27,7 +27,7 @@
 - `Space`: Pause or resume the game
 - `R`: Restart the game
 - `P`: Return to the menu
-# How To Run (to be filled)
+# How To Run
 - Make sure Java JDK is installed on your computer.
 - From the project root folder, compile the source files: javac src/tetris/*.java
 - Run the game: java -cp src tetris.WindowGame
