@@ -12,6 +12,9 @@ import javax.swing.Timer;
 import java.util.Random;
 
 public class Board extends JPanel implements KeyListener{
+
+    private WindowGame window;
+    
     public static int STATE_GAME_PLAY = 0;
     public static int STATE_GAME_PAUSE = 1;
     public static int STATE_GAME_OVER = 2;
@@ -53,7 +56,8 @@ public class Board extends JPanel implements KeyListener{
     private Shape[] shapes = new Shape[7] ;
     private Shape currentShape;
 
-    public Board(){
+    public Board(WindowGame window){
+        this.window = window;
         setFocusable(true);
         addKeyListener(this);
 
@@ -164,12 +168,20 @@ public class Board extends JPanel implements KeyListener{
         for(int col = 0; col < BOARD_WIDTH+1; col++){
             g.drawLine(col * BLOCK_SIZE, 0, col * BLOCK_SIZE, BLOCK_SIZE * BOARD_HEIGHT);
         }
+
+        // Restart and score
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Score: " + score, 305, 100);
         g.setFont(new Font("Arial", Font.BOLD, 14));
         g.drawString("Press R to restart", 305, 50);
 
+        // Menu
+        g.setColor(Color.WHITE);
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("P to return to Menu", 313, 230);
+        
+        // Game over and pause messages
         if ( state == STATE_GAME_OVER){
             g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.BOLD, 20));
@@ -229,6 +241,11 @@ public class Board extends JPanel implements KeyListener{
             } else if ( state == STATE_GAME_PAUSE){
                 state = STATE_GAME_PLAY;
             }
+        }
+        // Return to menu
+        if(e.getKeyCode() == KeyEvent.VK_P){
+            looper.stop();
+            window.returnToMenu();
         }
     }
     @Override
