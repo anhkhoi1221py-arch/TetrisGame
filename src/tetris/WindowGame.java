@@ -1,7 +1,7 @@
 package tetris;
 import javax.swing.JFrame;
 public class WindowGame {
-    public static final int WIDTH = 445 , HEIGHT = 637 ;
+    public static final int WIDTH = 455 , HEIGHT = 637 ;
     private Board board ;
     private JFrame window ;
     private Title title;
