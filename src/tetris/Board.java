@@ -166,19 +166,19 @@ public class Board extends JPanel implements KeyListener{
         }
         g.setColor(Color.WHITE);
         g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("Score: " + score, 305, 175);
-        g.setFont(new Font("Arial", Font.BOLD, 20));
-        g.drawString("R to restart", 313, 285);
+        g.drawString("Score: " + score, 305, 100);
+        g.setFont(new Font("Arial", Font.BOLD, 14));
+        g.drawString("Press R to restart", 305, 50);
 
         if ( state == STATE_GAME_OVER){
             g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.BOLD, 20));
-            g.drawString("Game Over",312 ,317);
+            g.drawString("Game Over ",305 ,200);
         }
         if ( state == STATE_GAME_PAUSE){
             g.setColor(Color.WHITE);
             g.setFont(new Font("Arial", Font.BOLD, 20));
-            g.drawString("Game Paused",301 ,317);
+            g.drawString("Game Pause ",305 ,200);
         }
     }
 
