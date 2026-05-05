@@ -3,49 +3,34 @@
 # Description
   - This is a Java-based implementation of the game Tetris.
   - It allows users to play the game using a graphical user interface.
-# Game Rules
-  - Blocks fall from the top of the screen.
-  - Player can move the blocks left or right.
-  - Player can rotate and speed up the blocks.
-  - A full horizontal line is cleared.
-  - The game ends when blocks reach the top of the board.
-# Main Features
-  - Graphical user interface.
-  - Player controls.
-  - Score system.
-  - Game board.
-  - Game start and restart.
-  - Basic game logic.
-# Class Design 
-  The project is divided into several classes:
-    - "WindowGame.java": Creates the main game window and starts the program.
-    - "Title.java": Displays the title screen and game instructions.
-    - "Board.java": Handles the game board, game loop, keyboard input, score, pause, restart, and game over.
-    - "Shape.java": Handles tetromino movement, rotation, falling speed, collision, and drawing.
-    - "ImageLoader.java": Loads images used in the game.
-# Class Diagram
-  - "WindowGame" creates and manages "Title" and "Board".
-  - "Title" calls "WindowGame" to start the game.
-  - "Board" creates and manages "Shape" objects.
-  - "Shape" uses "Board" to check collision and store landed blocks.
-# Technologies Used
-  - Java
-  - Java Swing
-  - Java AWT
-  - Git
-  - GitHub
-  - Visual Studio Code
-# Extra Features 
-  - Title screen with instructions
-  - Pause and resume game
-  - Restart after game over
-  - Score system
-  - Image mode / classic mode
-# Design Patterns 
-  - Encapsulation: Each class has its own responsibility.
-  - Separation of concerns: Window, title screen, board logic, and shape logic are separated into different classes.
-  - Object composition: `Board` contains and manages multiple `Shape` objects.
-# How To Run The Project (to be filled)
+# Features
+- Java Swing graphical user interface
+- Title screen with instructions
+- Classic Tetris gameplay
+- Seven tetromino shapes
+- Keyboard-based player controls
+- Collision detection
+- Line clearing system
+- Score tracking
+- Pause and resume
+- Restart after game over
+- Return-to-menu option
+- Classic color mode and image mode
+# Controls
+- `Enter`: Start the game from the title screen
+- `1`: Select Classic Mode
+- `2`: Select Image Mode
+- `Left Arrow`: Move block left
+- `Right Arrow`: Move block right
+- `Up Arrow`: Rotate block
+- `Down Arrow`: Speed up block
+- `Space`: Pause or resume the game
+- `R`: Restart the game
+- `P`: Return to the menu
+# How To Run (to be filled)
+- Make sure Java JDK is installed on your computer.
+- From the project root folder, compile the source files: javac src/tetris/*.java
+- Run the game: java -cp src tetris.WindowGame
 # Team Members
   - Trần Anh Khôi _ ITITIU25016
   - Cao Anh Khôi _ ITITIU25015
