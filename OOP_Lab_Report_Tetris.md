@@ -9,6 +9,7 @@
 **Main class:** `WindowGame`  
 **Project type:** Object-Oriented Programming game application
 **Group:** K
+
 **Group members:**
 - Cao Anh Khôi _ ITITIU25015
 - Trần Anh Khôi _ ITITIU25016
