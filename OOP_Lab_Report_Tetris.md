@@ -289,19 +289,7 @@ After a new shape is selected, `Board.checkOverGame()` checks whether the new sh
 - The image mode is optional, so the game can still run if images are unavailable.
 - The title screen and game board are separated instead of being drawn in one large class.
 
-## 15. Limitations and Possible Improvements
-
-Some improvements could make the project more maintainable:
-
-- The game state constants could be changed from `int` values to an `enum` for better readability.
-- The board dimensions could be used consistently instead of hard-coded numbers such as `10`, `20`, and `30` in some parts of `Shape`.
-- The line-clearing logic could be separated from `Shape` and moved fully into `Board`, because clearing lines is more related to board behavior.
-- The `Shape` objects are reused from the `shapes` array, so rotation changes their internal matrix. A future version could create a fresh shape object each time to avoid shared mutable shape definitions.
-- A preview for the next shape could be added.
-- More advanced scoring could award more points for clearing multiple lines at once.
-- Sound effects and levels could improve the gameplay experience.
-
-## 16. Testing
+## 15. Testing
 
 The project can be tested manually by running the main method in `WindowGame`. Important test cases include:
 
@@ -318,7 +306,7 @@ The project can be tested manually by running the main method in `WindowGame`. I
 | Press P | Game returns to the title menu. |
 | Select modes with 1 and 2 | Classic or image mode is selected before starting. |
 
-## 17. Conclusion
+## 16. Conclusion
 
 This Tetris project successfully demonstrates the use of Object-Oriented Programming in a Java game. The program separates the window, title screen, board, shape behavior, and image loading into different classes. It uses inheritance through Swing components, interface implementation through `KeyListener`, and composition between the main game objects.
 
