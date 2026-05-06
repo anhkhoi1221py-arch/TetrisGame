@@ -10,11 +10,11 @@
 **Project type:** Object-Oriented Programming game application
 **Group:** K
 **Group members:**
-        - Cao Anh Khôi _ ITITIU25015
-        - Trần Anh Khôi _ ITITIU25016
-        - Trần Tuấn Hùng _ ITITIU25008
-        - Phan Trung Tiến Nhật _ ITITIU25024
-        - Đặng Thanh Sơn _ ITITIU25030
+- Cao Anh Khôi _ ITITIU25015
+- Trần Anh Khôi _ ITITIU25016
+- Trần Tuấn Hùng _ ITITIU25008
+- Phan Trung Tiến Nhật _ ITITIU25024
+- Đặng Thanh Sơn _ ITITIU25030
 
 ## 2. Introduction
 
