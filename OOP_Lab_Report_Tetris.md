@@ -8,6 +8,7 @@
 **Main package:** `tetris`  
 **Main class:** `WindowGame`  
 **Project type:** Object-Oriented Programming game application
+
 **Group:** K
 
 **Group members:**
